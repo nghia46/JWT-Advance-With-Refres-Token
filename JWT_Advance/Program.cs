@@ -1,3 +1,4 @@
+using JWT_Advance;
 using JWT_Advance.Context;
 using JWT_Advance.Interfaces;
 using JWT_Advance.Repository;
@@ -33,7 +34,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = false,
-        ValidateIssuerSigningKey = true
+        ValidateIssuerSigningKey = true,
     };
 });
 #endregion
@@ -81,6 +82,7 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
     opts.UseNpgsql(builder.Configuration["ConnectionString:Postgres"]));
 var app = builder.Build();
 // Configure the HTTP request pipeline.
+app.UseMiddleware<AuthMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCors("EnableCORS");

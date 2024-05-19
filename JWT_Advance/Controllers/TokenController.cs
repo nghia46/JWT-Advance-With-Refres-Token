@@ -17,6 +17,7 @@ public class TokenController : ControllerBase
         _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
     }
 
+    [AllowAnonymousRefreshToken]
     [HttpPost]
     [Route("refresh")]
     public IActionResult Refresh(TokenApiModel tokenApiModel)
